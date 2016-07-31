@@ -34,8 +34,26 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\Base\IArea.cs" />
+    <Compile Include="Interfaces\Base\IEntity.cs" />
+    <Compile Include="Interfaces\Base\ILevel.cs" />
+    <Compile Include="Interfaces\Base\ITile.cs" />
+    <Compile Include="Interfaces\Creation\Args\EntityCreatedArgs.cs" />
+    <Compile Include="Interfaces\Creation\Args\TileCreatedArgs.cs" />
+    <Compile Include="Interfaces\Creation\ICreateEntities.cs" />
+    <Compile Include="Interfaces\Creation\ICreateTiles.cs" />
+    <Compile Include="Interfaces\Creation\IEntityFactory.cs" />
+    <Compile Include="Interfaces\Creation\ITileFactory.cs" />
+    <Compile Include="Interfaces\Management\Args\EntityAddedArgs.cs" />
+    <Compile Include="Interfaces\Management\Args\EntityRemovedArgs.cs" />
+    <Compile Include="Interfaces\Management\IManageEntities.cs" />
+    <Compile Include="Interfaces\Solvers\ISolver.cs" />
+    <Compile Include="Interfaces\TileChange\Args\TileChangedArgs.cs" />
+    <Compile Include="Interfaces\TileChange\IChangeTile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\TileChangeType.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
