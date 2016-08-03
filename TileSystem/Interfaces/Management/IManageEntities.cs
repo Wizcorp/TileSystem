@@ -1,5 +1,7 @@
 ﻿using System;
 
+using TileSystem.Interfaces.Base;
+
 namespace TileSystem.Interfaces.Management
 {
 	/// <summary>
@@ -10,5 +12,8 @@ namespace TileSystem.Interfaces.Management
 	{
 		event EventHandler<EntityAddedArgs> EntityAdded;
 		event EventHandler<EntityRemovedArgs> EntityRemoved;
+
+		void Add(IEntity entity);
+		void Remove(IEntity entity);
 	}
 }

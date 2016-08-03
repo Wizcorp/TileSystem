@@ -8,11 +8,12 @@ namespace TileSystem.Interfaces.Creation
 	/// ICreateTiles is used by the level to create tiles
 	/// using a normal creational pattern
 	/// 
-	/// The area, x, y will be where the tile is created
+	/// The area and position will be where the tile is created
 	/// </summary>
 	public interface ICreateTiles
 	{
 		event EventHandler<TileCreatedArgs> TileCreated;
-		ITile CreateTile(IArea area, int x, int y, string type, string variation, params object[] properties);
+		ITile CreateTile(IArea area, IPosition position, string type, string variation, params object[] properties);
+		ITileFactory TileFactory { get; }
 	}
 }

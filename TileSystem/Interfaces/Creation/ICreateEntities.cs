@@ -14,5 +14,6 @@ namespace TileSystem.Interfaces.Creation
 	{
 		event EventHandler<EntityCreatedArgs> EntityCreated;
 		IEntity CreateEntity(ITile tile, string type, string variation, params object[] properties);
+		IEntityFactory EntityFactory { get; }
 	}
 }
