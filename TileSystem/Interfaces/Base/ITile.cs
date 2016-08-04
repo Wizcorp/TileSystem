@@ -15,6 +15,8 @@ namespace TileSystem.Interfaces.Base
 	/// 
 	/// It is separate to the clean up so that we can remove everything from the tile which can be
 	/// used to not trigger the destroy event.
+	/// 
+	/// The Area is a reference to the containing parent for fast traversing
 	/// </summary>
 	public interface ITile : IManageEntities
 	{

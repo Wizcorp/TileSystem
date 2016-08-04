@@ -5,7 +5,7 @@ using TileSystem.Interfaces.Base;
 namespace TileSystem.Interfaces.Creation
 {
 	/// <summary>
-	/// ICreateEntities is used by the level to create entities
+	/// ICreateEntities is used to create entities
 	/// using a normal creational pattern
 	/// 
 	/// The tile will be where the entity starts in the level

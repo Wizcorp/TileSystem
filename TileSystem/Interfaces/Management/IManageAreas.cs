@@ -5,7 +5,7 @@ using TileSystem.Interfaces.Base;
 namespace TileSystem.Interfaces.Management
 {
 	/// <summary>
-	/// 
+	/// Used to manage the areas in the level / world
 	/// </summary>
 	public interface IManageAreas
 	{

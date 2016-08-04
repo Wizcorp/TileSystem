@@ -5,7 +5,7 @@ using TileSystem.Interfaces.Base;
 namespace TileSystem.Interfaces.Creation
 {
 	/// <summary>
-	/// ICreateTiles is used by the level to create tiles
+	/// ICreateTiles is used to create tiles
 	/// using a normal creational pattern
 	/// 
 	/// The area and position will be where the tile is created
