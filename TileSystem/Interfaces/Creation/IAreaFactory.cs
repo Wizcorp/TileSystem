@@ -3,7 +3,7 @@
 namespace TileSystem.Interfaces.Creation
 {
 	/// <summary>
-	/// Factory for areae creation, defined by the framework to be easily linked
+	/// Factory for area creation, defined by the framework to be easily linked
 	/// to the ICreateAreas interface 
 	/// </summary>
 	public interface IAreaFactory

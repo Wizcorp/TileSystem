@@ -13,6 +13,6 @@ namespace TileSystem.Interfaces.Base
 	public interface ILevel : IManageAreas
 	{
 		IArea Get(IPosition position);
-		List<IArea> GetNeighbours(IArea tile);
+		List<IArea> GetNeighbours(IArea area);
 	}
 }
