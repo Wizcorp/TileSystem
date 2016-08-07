@@ -3,10 +3,16 @@
 namespace TileSystem.Interfaces.Base
 {
 	/// <summary>
-	/// Currently this is empty because there are no references required for
-	/// destroy much like the Tile destroy event
+	/// Entity that was destroyed is emited with this event
+	/// Used by IEntity Destroy event
 	/// </summary>
 	public class EntityDestroyedArgs : EventArgs
 	{
+		public IEntity Entity { get; private set; }
+
+		public EntityDestroyedArgs(IEntity entity)
+		{
+			Entity = entity;
+		}
 	}
 }

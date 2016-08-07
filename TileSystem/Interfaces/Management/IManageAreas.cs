@@ -13,6 +13,6 @@ namespace TileSystem.Interfaces.Management
 		event EventHandler<AreaRemovedArgs> AreaRemoved;
 
 		void Add(IArea area);
-		void Remove(IArea area);
+		bool Remove(IArea area);
 	}
 }
