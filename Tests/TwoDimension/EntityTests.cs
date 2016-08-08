@@ -35,22 +35,6 @@ namespace Tests.TwoDimension
 		}
 
 		[Test]
-		public void EntityCleanUp()
-		{
-			Entity entity = new Entity();
-			var mockTile = new Mock<ITile>();
-
-			// Set Tile Parent
-			entity.SetParent(mockTile.Object);
-
-			// Clean Up
-			entity.CleanUp();
-
-			// Make sure the tile remove was called with the entity
-			mockTile.Verify(tile => tile.Remove(entity), Times.Exactly(1));
-		}
-
-		[Test]
 		public void EntityDestroy()
 		{
 			Entity entity = new Entity();
@@ -67,6 +51,22 @@ namespace Tests.TwoDimension
 
 			// Destroy event was fired
 			Assert.IsTrue(destroyedCalled);
+		}
+
+		[Test]
+		public void EntityDestroyTileRemove()
+		{
+			Entity entity = new Entity();
+			var mockTile = new Mock<ITile>();
+
+			// Set Tile Parent
+			entity.SetParent(mockTile.Object);
+
+			// Destroy
+			entity.Destroy();
+
+			// Make sure the tile remove was called with the entity
+			mockTile.Verify(tile => tile.Remove(entity), Times.Exactly(1));
 		}
 
 		[Test]

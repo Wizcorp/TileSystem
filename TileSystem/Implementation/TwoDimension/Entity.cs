@@ -56,24 +56,15 @@ namespace TileSystem.Implementation.TwoDimension
 		}
 
 		/// <summary>
-		/// Clean up from containing Tile and call the destroy events
+		/// Destroy this entity and emit the event
 		/// </summary>
-		public virtual void CleanUp()
+		public virtual void Destroy()
 		{
 			if (Tile != null)
 			{
 				Tile.Remove(this);
 			}
 
-			// TODO: Is this necessary here?
-			Destroy();
-		}
-
-		/// <summary>
-		/// Destroy this entity and emit the event
-		/// </summary>
-		public virtual void Destroy()
-		{
 			if (Destroyed != null)
 			{
 				Destroyed.Invoke(this, new EntityDestroyedArgs(this));

@@ -36,22 +36,6 @@ namespace Tests.TwoDimension
 		}
 
 		[Test]
-		public void AreaCleanUp()
-		{
-			Area area = new Area();
-			var mockTile = new Mock<ITile>();
-
-			// Add entity to Tile
-			area.Add(mockTile.Object);
-
-			// Clean Up
-			area.CleanUp();
-
-			// Make sure the entity clean up was called
-			mockTile.Verify(tile => tile.CleanUp(), Times.Exactly(1));
-		}
-
-		[Test]
 		public void AreaDestroy()
 		{
 			Area area = new Area();
@@ -68,6 +52,22 @@ namespace Tests.TwoDimension
 
 			// Destroy event was fired
 			Assert.IsTrue(destroyedCalled);
+		}
+
+		[Test]
+		public void AreaDestroyPropagation()
+		{
+			Area area = new Area();
+			var mockTile = new Mock<ITile>();
+
+			// Add entity to Tile
+			area.Add(mockTile.Object);
+
+			// Destroy with propagation
+			area.Destroy(true);
+
+			// Make sure the tile below also received the destroy
+			mockTile.Verify(tile => tile.Destroy(true), Times.Exactly(1));
 		}
 
 		[Test]
