@@ -14,6 +14,6 @@ namespace TileSystem.Interfaces.Management
 		event EventHandler<EntityRemovedArgs> EntityRemoved;
 
 		void Add(IEntity entity);
-		void Remove(IEntity entity);
+		bool Remove(IEntity entity);
 	}
 }

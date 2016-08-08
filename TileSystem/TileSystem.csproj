@@ -34,6 +34,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\Base\Management\TileChangeManager.cs" />
     <Compile Include="Interfaces\Base\Args\AreaDestroyedArgs.cs" />
     <Compile Include="Interfaces\Base\Args\EntityDestroyedArgs.cs" />
     <Compile Include="Interfaces\Base\Args\TileDestroyedArgs.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Interfaces\Management\Args\TileRemovedArgs.cs" />
     <Compile Include="Interfaces\Management\IManageAreas.cs" />
     <Compile Include="Interfaces\Management\IManageEntities.cs" />
+    <Compile Include="Interfaces\Management\IManageTileChange.cs" />
     <Compile Include="Interfaces\Management\IManageTiles.cs" />
     <Compile Include="Interfaces\Solvers\ISolver.cs" />
     <Compile Include="Interfaces\TileChange\Args\TileChangedArgs.cs" />
