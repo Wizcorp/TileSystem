@@ -60,6 +60,9 @@
   <ItemGroup>
     <Compile Include="Management\TileChangeManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TwoDimension\AreaTests.cs" />
+    <Compile Include="TwoDimension\EntityTests.cs" />
+    <Compile Include="TwoDimension\TileTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -72,6 +75,7 @@
       <Name>TileSystem</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

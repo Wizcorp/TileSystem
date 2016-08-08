@@ -2,9 +2,9 @@
 
 using NUnit.Framework;
 
-using TileSystem.Implementation.Base.Management;
 using TileSystem.Interfaces.Base;
 using TileSystem.Interfaces.Creation;
+using TileSystem.Implementation.Management;
 using TileSystem.Interfaces.Solvers;
 using TileSystem.Interfaces.TileChange;
 using TileSystem.Utils;

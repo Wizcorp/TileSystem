@@ -7,7 +7,7 @@ using TileSystem.Interfaces.Management;
 using TileSystem.Interfaces.Solvers;
 using TileSystem.Interfaces.TileChange;
 
-namespace TileSystem.Implementation.Base.Management
+namespace TileSystem.Implementation.Management
 {
 	/// <summary>
 	/// Implementation of IManageTileChange interface, this class is a basic
