@@ -32,7 +32,6 @@ namespace TileSystem.Interfaces.Base
 		ILevel Level { get; }
 
 		event EventHandler<AreaDestroyedArgs> Destroyed;
-		void Destroy();
-		void CleanUp();
+		void Destroy(bool propagate = false);
 	}
 }

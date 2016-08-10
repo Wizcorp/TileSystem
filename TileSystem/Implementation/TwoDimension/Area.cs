@@ -143,24 +143,18 @@ namespace TileSystem.Implementation.TwoDimension
 		}
 
 		/// <summary>
-		/// Clean up all the tiles and call the destroy events
-		/// </summary>
-		public virtual void CleanUp()
-		{
-			for (int i = tiles.Count - 1; i >= 0; i--)
-			{
-				tiles[i].CleanUp();
-			}
-
-			// TODO: Is this necessary here?
-			Destroy();
-		}
-
-		/// <summary>
 		/// Destroy this area and emit the event
 		/// </summary>
-		public virtual void Destroy()
+		public virtual void Destroy(bool propagate = false)
 		{
+			if (propagate)
+			{
+				for (int i = tiles.Count - 1; i >= 0; i--)
+				{
+					tiles[i].Destroy(propagate);
+				}
+			}
+
 			if (Destroyed != null)
 			{
 				Destroyed.Invoke(this, new AreaDestroyedArgs());

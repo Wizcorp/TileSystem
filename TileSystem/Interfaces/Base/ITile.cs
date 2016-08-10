@@ -26,7 +26,6 @@ namespace TileSystem.Interfaces.Base
 		IArea Area { get; }
 
 		event EventHandler<TileDestroyedArgs> Destroyed;
-		void Destroy();
-		void CleanUp();
+		void Destroy(bool propagate = false);
 	}
 }

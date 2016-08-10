@@ -22,6 +22,5 @@ namespace TileSystem.Interfaces.Base
 
 		event EventHandler<EntityDestroyedArgs> Destroyed;
 		void Destroy();
-		void CleanUp();
 	}
 }

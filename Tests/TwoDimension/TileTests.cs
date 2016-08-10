@@ -37,7 +37,7 @@ namespace Tests.TwoDimension
 		}
 
 		[Test]
-		public void TileCleanUp()
+		public void TileDestroyPropagation()
 		{
 			Tile tile = new Tile();
 			var mockEntity = new Mock<IEntity>();
@@ -46,10 +46,10 @@ namespace Tests.TwoDimension
 			tile.Add(mockEntity.Object);
 
 			// Clean Up
-			tile.CleanUp();
+			tile.Destroy(true);
 
-			// Make sure the entity clean up was called
-			mockEntity.Verify(entity => entity.CleanUp(), Times.Exactly(1));
+			// Make sure the entity was also called to be destroyed
+			mockEntity.Verify(entity => entity.Destroy(), Times.Exactly(1));
 		}
 
 		[Test]
