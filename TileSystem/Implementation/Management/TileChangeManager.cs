@@ -17,11 +17,6 @@ namespace TileSystem.Implementation.Management
 	/// Add will throw ArgumentException to stop multiples of the same solver
 	/// instance being added, and ArgumentNullException for null values
 	/// (like a Dictionary)
-	/// 
-	/// Current warnings for registered events not being IEntity are not
-	/// logged. TODO: Decide if we should throw these events, techinically
-	/// they should not be able to happen and if they do it's likely to be an
-	/// error
 	/// </summary>
 	public class TileChangeManager : IManageTileChange
 	{
