@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Implementation\TwoDimension\Area.cs" />
     <Compile Include="Implementation\TwoDimension\Entity.cs" />
+    <Compile Include="Implementation\TwoDimension\Level.cs" />
     <Compile Include="Implementation\TwoDimension\Position2D.cs" />
     <Compile Include="Implementation\TwoDimension\Tile.cs" />
     <Compile Include="Implementation\Management\TileChangeManager.cs" />
