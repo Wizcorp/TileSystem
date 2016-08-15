@@ -168,14 +168,14 @@ namespace Tests.TwoDimension
 		[Test]
 		public void PositionGet()
 		{
-			// TODO: Write get position test
+			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
 			Assert.Fail();
 		}
 
 		[Test]
 		public void PositionGetNeighbours()
 		{
-			// TODO: Write get neighbours test
+			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
 			Assert.Fail();
 		}
 	}

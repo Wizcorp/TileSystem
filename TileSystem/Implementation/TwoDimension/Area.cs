@@ -13,8 +13,6 @@ namespace TileSystem.Implementation.TwoDimension
 	/// Notes:
 	/// Same as Tile, need to decide on the destroy event and clean up whether they should call
 	/// one another or should be two function calls
-	/// 
-	/// TODO: PositionGet and PositionGetNeighbours need to be implemented
 	/// </summary>
 	public class Area : IArea
 	{
@@ -129,6 +127,7 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Tile instance or null</returns>
 		public ITile Get(IPosition position)
 		{
+			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
 			throw new NotImplementedException();
 		}
 
@@ -139,6 +138,7 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>List of neighbours or null</returns>
 		public List<ITile> GetNeighbours(ITile tile)
 		{
+			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
 			throw new NotImplementedException();
 		}
 

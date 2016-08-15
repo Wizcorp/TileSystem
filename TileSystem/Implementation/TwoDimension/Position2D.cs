@@ -34,7 +34,7 @@ namespace TileSystem.Implementation.TwoDimension
 				return 0;
 			}
 
-			// TODO: Calculate this based on distance so we can do tile ordering in 2D space
+			// TODO: Issue 11 (https://github.com/Wizcorp/TileSystem/issues/11)
 			return -1;
 		}
 
