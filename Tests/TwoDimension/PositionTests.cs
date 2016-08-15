@@ -1,8 +1,5 @@
-﻿using Moq;
+﻿using NUnit.Framework;
 
-using NUnit.Framework;
-
-using TileSystem.Interfaces.Base;
 using TileSystem.Interfaces.TwoDimension;
 using TileSystem.Implementation.TwoDimension;
 
