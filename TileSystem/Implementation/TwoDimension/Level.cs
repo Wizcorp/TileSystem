@@ -54,25 +54,27 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <param name="entityFactory">Entity factory instance</param>
 		public Level(IAreaFactory areaFactory, ITileFactory tileFactory, IEntityFactory entityFactory) : this()
 		{
+			if (areaFactory == null)
+			{
+				throw new ArgumentNullException("areaFactory", "Area Factory can not be null");
+			}
+
+			if (tileFactory == null)
+			{
+				throw new ArgumentNullException("tileFactory", "Tile Factory can not be null");
+			}
+
+			if (entityFactory == null)
+			{
+				throw new ArgumentNullException("entityFactory", "Entity Factory can not be null");
+			}
+
 			AreaFactory = areaFactory;
 			TileFactory = tileFactory;
 			EntityFactory = entityFactory;
 		}
 
 		#region Creation Methods
-
-		/// <summary>
-		/// Create an entity on the tile specified, with the type and variation
-		/// </summary>
-		/// <param name="tile">Tile to create the entity on</param>
-		/// <param name="type">Type of the entity</param>
-		/// <param name="variation">Variation of the type</param>
-		/// <param name="properties">Instantiation parameters</param>
-		/// <returns>Reference to the entity created</returns>
-		public IEntity CreateEntity(ITile tile, string type, string variation, params object[] properties)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>
 		/// Create an area in the level specified, with the type and variation
@@ -85,7 +87,28 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Reference to the area created</returns>
 		public IArea CreateArea(ILevel level, IPosition position, string type, string variation, params object[] properties)
 		{
-			throw new NotImplementedException();
+			if (level == null)
+			{
+				throw new ArgumentNullException("level", "level can not be null");
+			}
+
+			if (position == null)
+			{
+				throw new ArgumentNullException("position", "position can not be null");
+			}
+
+			IArea area = AreaFactory.CreateArea(type, variation, properties);
+
+			area.SetPosition(level, position);
+
+			level.Add(area);
+
+			if (AreaCreated != null)
+			{
+				AreaCreated.Invoke(this, new AreaCreatedArgs(level, area));
+			}
+
+			return area;
 		}
 
 		/// <summary>
@@ -99,7 +122,57 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Reference to the tile created</returns>
 		public ITile CreateTile(IArea area, IPosition position, string type, string variation, params object[] properties)
 		{
-			throw new NotImplementedException();
+			if (area == null)
+			{
+				throw new ArgumentNullException("area", "area can not be null");
+			}
+
+			if (position == null)
+			{
+				throw new ArgumentNullException("position", "position can not be null");
+			}
+
+			ITile tile = TileFactory.CreateTile(type, variation, properties);
+
+			tile.SetPosition(area, position);
+
+			area.Add(tile);
+
+			if (TileCreated != null)
+			{
+				TileCreated.Invoke(this, new TileCreatedArgs(area, tile));
+			}
+
+			return tile;
+		}
+
+		/// <summary>
+		/// Create an entity on the tile specified, with the type and variation
+		/// </summary>
+		/// <param name="tile">Tile to create the entity on</param>
+		/// <param name="type">Type of the entity</param>
+		/// <param name="variation">Variation of the type</param>
+		/// <param name="properties">Instantiation parameters</param>
+		/// <returns>Reference to the entity created</returns>
+		public IEntity CreateEntity(ITile tile, string type, string variation, params object[] properties)
+		{
+			if (tile == null)
+			{
+				throw new ArgumentNullException("tile", "tile can not be null");
+			}
+
+			IEntity entity = EntityFactory.CreateEntity(type, variation, properties);
+
+			entity.SetParent(tile);
+
+			tile.Add(entity);
+
+			if (EntityCreated != null)
+			{
+				EntityCreated.Invoke(this, new EntityCreatedArgs(tile, entity));
+			}
+
+			return entity;
 		}
 
 		#endregion
@@ -112,7 +185,22 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <param name="area">Area you are adding</param>
 		public void Add(IArea area)
 		{
-			throw new NotImplementedException();
+			if (area == null)
+			{
+				throw new ArgumentNullException("area", "Areas can not be null");
+			}
+
+			if (areas.Contains(area))
+			{
+				throw new ArgumentException("Duplicate value", "area");
+			}
+
+			areas.Add(area);
+
+			if (AreaAdded != null)
+			{
+				AreaAdded.Invoke(this, new AreaAddedArgs(area));
+			}
 		}
 
 		/// <summary>
@@ -122,7 +210,19 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>true if an area was removed</returns>
 		public bool Remove(IArea area)
 		{
-			throw new NotImplementedException();
+			if (area == null)
+			{
+				throw new ArgumentNullException("area", "Areas can not be null");
+			}
+
+			bool removed = areas.Remove(area);
+
+			if (removed && AreaRemoved != null)
+			{
+				AreaRemoved.Invoke(this, new AreaRemovedArgs(area));
+			}
+
+			return removed;
 		}
 
 		/// <summary>

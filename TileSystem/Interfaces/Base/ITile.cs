@@ -24,6 +24,8 @@ namespace TileSystem.Interfaces.Base
 		string Variation { get; }
 
 		IArea Area { get; }
+		IPosition Position { get; }
+		void SetPosition(IArea area, IPosition position);
 
 		event EventHandler<TileDestroyedArgs> Destroyed;
 		void Destroy(bool propagate = false);

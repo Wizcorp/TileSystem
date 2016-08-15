@@ -61,7 +61,10 @@
     <Compile Include="Management\TileChangeManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TwoDimension\AreaTests.cs" />
+    <Compile Include="TwoDimension\CreationTests.cs" />
     <Compile Include="TwoDimension\EntityTests.cs" />
+    <Compile Include="TwoDimension\LevelTests.cs" />
+    <Compile Include="TwoDimension\PositionTests.cs" />
     <Compile Include="TwoDimension\TileTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -156,6 +156,8 @@ namespace Tests.TwoDimension
 			Assert.That(() => area.SetPosition(null, mockPosition.Object), Throws.ArgumentNullException);
 			Assert.That(() => area.SetPosition(mockLevel.Object, null), Throws.ArgumentNullException);
 
+			// TODO: Issue 13 (https://github.com/Wizcorp/TileSystem/issues/13)
+
 			// Test Set Position Works
 			Assert.That(() => area.SetPosition(mockLevel.Object, mockPosition.Object), Throws.Nothing);
 

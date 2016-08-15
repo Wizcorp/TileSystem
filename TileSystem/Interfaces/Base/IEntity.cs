@@ -10,6 +10,8 @@ namespace TileSystem.Interfaces.Base
 	/// 
 	/// The Tile is a reference to the containing parent for fast traversing
 	/// 
+	/// Set Parent sets the tile that the entity is attached to
+	/// 
 	/// The Destroyed, Destroy and CleanUp are management functions so you can cleanup
 	/// without triggering the event, much like destroy immediate in Unity
 	/// </summary>
@@ -19,6 +21,7 @@ namespace TileSystem.Interfaces.Base
 		string Variation { get; }
 
 		ITile Tile { get; }
+		void SetParent(ITile tile);
 
 		event EventHandler<EntityDestroyedArgs> Destroyed;
 		void Destroy();

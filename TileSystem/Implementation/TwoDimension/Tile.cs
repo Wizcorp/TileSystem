@@ -16,6 +16,10 @@ namespace TileSystem.Implementation.TwoDimension
 	/// </summary>
 	public class Tile : ITile
 	{
+		// Position in 2d
+		private IPosition2D position2d;
+
+		// List of entities this tile contains
 		private List<IEntity> entities;
 
 		// Destroyed event from ITile
@@ -31,7 +35,10 @@ namespace TileSystem.Implementation.TwoDimension
 
 		// Location in the system
 		public IArea Area { get; private set; }
-		public IPosition2D Position { get; private set; }
+		public IPosition Position
+		{
+			get { return position2d; }
+		}
 
 		/// <summary>
 		/// Default constructor sets up a list of IEntity
@@ -57,8 +64,8 @@ namespace TileSystem.Implementation.TwoDimension
 		/// Set position in the area of the tile
 		/// </summary>
 		/// <param name="area">Parent area</param>
-		/// <param name="position">position in 2d</param>
-		public void SetPosition(IArea area, IPosition2D position)
+		/// <param name="position">position</param>
+		public void SetPosition(IArea area, IPosition position)
 		{
 			if (area == null)
 			{
@@ -70,8 +77,15 @@ namespace TileSystem.Implementation.TwoDimension
 				throw new ArgumentNullException("position", "Position can not be null");
 			}
 
+			IPosition2D pos = position as IPosition2D;
+
+			if (pos == null)
+			{
+				throw new ArgumentException("position must be of type IPosition2D", "position");
+			}
+
 			Area = area;
-			Position = position;
+			position2d = pos;
 		}
 
 		/// <summary>
@@ -133,6 +147,11 @@ namespace TileSystem.Implementation.TwoDimension
 				}
 			}
 
+			if (Area != null)
+			{
+				Area.Remove(this);
+			}
+
 			if (Destroyed != null)
 			{
 				Destroyed.Invoke(this, new TileDestroyedArgs());
@@ -145,7 +164,7 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Formatted string representation of the Tile(X,Y, Entity Count)</returns>
 		public override string ToString()
 		{
-			return string.Format("[Tile X:{0} Y:{1}, Entities Count:{2}]", Position.X, Position.Y, entities.Count);
+			return string.Format("[Tile X:{0} Y:{1}, Entities Count:{2}]", position2d.X, position2d.Y, entities.Count);
 		}
 	}
 }
