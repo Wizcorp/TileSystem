@@ -26,8 +26,8 @@ namespace TileSystem.Implementation.TwoDimension
 		public event EventHandler<TileRemovedArgs> TileRemoved;
 
 		// Representation in the system
-		public string Type { get; private set; }
-		public string Variation { get; private set; }
+		public string Type { get; protected set; }
+		public string Variation { get; protected set; }
 
 		// Location in the system
 		public ILevel Level { get; private set; }
