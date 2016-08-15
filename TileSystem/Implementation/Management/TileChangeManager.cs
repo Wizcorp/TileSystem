@@ -17,11 +17,6 @@ namespace TileSystem.Implementation.Management
 	/// Add will throw ArgumentException to stop multiples of the same solver
 	/// instance being added, and ArgumentNullException for null values
 	/// (like a Dictionary)
-	/// 
-	/// Current warnings for registered events not being IEntity are not
-	/// logged. TODO: Decide if we should throw these events, techinically
-	/// they should not be able to happen and if they do it's likely to be an
-	/// error
 	/// </summary>
 	public class TileChangeManager : IManageTileChange
 	{
@@ -150,8 +145,6 @@ namespace TileSystem.Implementation.Management
 			movable.Changing += EntityTileChanged;
 			movable.ChangeFinished += EntityTileChangeFinished;
 
-			// TODO: Check this works as expected, DeregisterTileChangeEvents was never
-			// used in the previous systems
 			e.Entity.Destroyed += DeregisterTileChangeEvents;
 		}
 
@@ -184,7 +177,7 @@ namespace TileSystem.Implementation.Management
 			IEntity entity = sender as IEntity;
 			if (entity == null)
 			{
-				// TODO: Warn
+				// TODO: Issue 7 (https://github.com/Wizcorp/TileSystem/issues/7)
 				return;
 			}
 
@@ -201,7 +194,7 @@ namespace TileSystem.Implementation.Management
 			IEntity entity = sender as IEntity;
 			if (entity == null)
 			{
-				// TODO: Warn
+				// TODO: Issue 7 (https://github.com/Wizcorp/TileSystem/issues/7)
 				return;
 			}
 
@@ -218,7 +211,7 @@ namespace TileSystem.Implementation.Management
 			IEntity entity = sender as IEntity;
 			if (entity == null)
 			{
-				// TODO: Warn
+				// TODO: Issue 7 (https://github.com/Wizcorp/TileSystem/issues/7)
 				return;
 			}
 
@@ -229,8 +222,7 @@ namespace TileSystem.Implementation.Management
 		/// Execute every Solver the specified entity and e
 		/// Return true if any interruption is returned by a solver
 		/// 
-		/// TODO: We should probably invert this and return true if it
-		/// was solved and false if we want to break
+		/// TODO: Issue 9 (https://github.com/Wizcorp/TileSystem/issues/9)
 		/// </summary>
 		private void ExecuteSolvers(IEntity entity, TileChangedArgs e)
 		{

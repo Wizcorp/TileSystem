@@ -6,7 +6,7 @@ namespace TileSystem.Interfaces.Base
 {
 	/// <summary>
 	/// Specifies a single tile in the system
-	/// TODO: Expand the properties to be correct
+	/// TODO: Issue 10 (https://github.com/Wizcorp/TileSystem/issues/10)
 	/// 
 	/// Notes:
 	/// Destroy is to tell the game that the entity was destroyed, we use this to only
