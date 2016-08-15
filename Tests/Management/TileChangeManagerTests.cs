@@ -159,9 +159,16 @@ namespace Tests
 		}
 
 		[Test]
+		public void TileChangeEntityDestroyedDeregisterEvents()
+		{
+			// TODO: Issue 8 (https://github.com/Wizcorp/TileSystem/issues/8)
+			Assert.Fail();
+		}
+
+		[Test]
 		public void TileChangeSolverBreak()
 		{
-			// TODO: Write solver break test once confirmed how we will implement this feature
+			// TODO: Issue 9 (https://github.com/Wizcorp/TileSystem/issues/9)
 			Assert.Fail();
 		}
 

@@ -150,8 +150,6 @@ namespace TileSystem.Implementation.Management
 			movable.Changing += EntityTileChanged;
 			movable.ChangeFinished += EntityTileChangeFinished;
 
-			// TODO: Check this works as expected, DeregisterTileChangeEvents was never
-			// used in the previous systems
 			e.Entity.Destroyed += DeregisterTileChangeEvents;
 		}
 
@@ -184,7 +182,7 @@ namespace TileSystem.Implementation.Management
 			IEntity entity = sender as IEntity;
 			if (entity == null)
 			{
-				// TODO: Warn
+				// TODO: Issue 7 (https://github.com/Wizcorp/TileSystem/issues/7)
 				return;
 			}
 
@@ -201,7 +199,7 @@ namespace TileSystem.Implementation.Management
 			IEntity entity = sender as IEntity;
 			if (entity == null)
 			{
-				// TODO: Warn
+				// TODO: Issue 7 (https://github.com/Wizcorp/TileSystem/issues/7)
 				return;
 			}
 
@@ -218,7 +216,7 @@ namespace TileSystem.Implementation.Management
 			IEntity entity = sender as IEntity;
 			if (entity == null)
 			{
-				// TODO: Warn
+				// TODO: Issue 7 (https://github.com/Wizcorp/TileSystem/issues/7)
 				return;
 			}
 
@@ -229,8 +227,7 @@ namespace TileSystem.Implementation.Management
 		/// Execute every Solver the specified entity and e
 		/// Return true if any interruption is returned by a solver
 		/// 
-		/// TODO: We should probably invert this and return true if it
-		/// was solved and false if we want to break
+		/// TODO: Issue 9 (https://github.com/Wizcorp/TileSystem/issues/9)
 		/// </summary>
 		private void ExecuteSolvers(IEntity entity, TileChangedArgs e)
 		{
