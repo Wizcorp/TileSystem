@@ -21,7 +21,7 @@ namespace TileSystem.Interfaces.Base
 		string Variation { get; }
 
 		ITile Tile { get; }
-		void SetParent(ITile tile);
+		void SetTile(ITile tile);
 
 		event EventHandler<EntityDestroyedArgs> Destroyed;
 		void Destroy();

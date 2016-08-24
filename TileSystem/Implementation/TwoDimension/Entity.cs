@@ -45,7 +45,7 @@ namespace TileSystem.Implementation.TwoDimension
 		/// Set the parent tile for this entity
 		/// </summary>
 		/// <param name="tile">Parent Tile</param>
-		public void SetParent(ITile tile)
+		public void SetTile(ITile tile)
 		{
 			if (tile == null)
 			{

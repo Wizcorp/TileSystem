@@ -112,14 +112,14 @@ namespace Tests.TwoDimension
 		[Test]
 		public void PositionGet()
 		{
-			// TODO: Add issue
+			// TODO: Issue 15 (https://github.com/Wizcorp/TileSystem/issues/15)
 			Assert.Fail();
 		}
 
 		[Test]
 		public void PositionGetNeighbours()
 		{
-			// TODO: Add issue
+			// TODO: Issue 15 (https://github.com/Wizcorp/TileSystem/issues/15)
 			Assert.Fail();
 		}
 	}

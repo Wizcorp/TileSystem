@@ -163,7 +163,7 @@ namespace TileSystem.Implementation.TwoDimension
 
 			IEntity entity = EntityFactory.CreateEntity(type, variation, properties);
 
-			entity.SetParent(tile);
+			entity.SetTile(tile);
 
 			tile.Add(entity);
 
@@ -232,6 +232,7 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Reference to the area</returns>
 		public IArea Get(IPosition position)
 		{
+			// TODO: Issue 15 (https://github.com/Wizcorp/TileSystem/issues/15)
 			throw new NotImplementedException();
 		}
 
@@ -242,6 +243,7 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>List of IArea which are next to the supplied area</returns>
 		public List<IArea> GetNeighbours(IArea area)
 		{
+			// TODO: Issue 15 (https://github.com/Wizcorp/TileSystem/issues/15)
 			throw new NotImplementedException();
 		}
 
