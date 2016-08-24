@@ -30,6 +30,8 @@ namespace TileSystem.Interfaces.Base
 		List<ITile> GetNeighbours(ITile tile);
 
 		ILevel Level { get; }
+		IPosition Position { get; }
+		void SetPosition(ILevel level, IPosition position);
 
 		event EventHandler<AreaDestroyedArgs> Destroyed;
 		void Destroy(bool propagate = false);

@@ -60,7 +60,7 @@ namespace Tests.TwoDimension
 			var mockTile = new Mock<ITile>();
 
 			// Set Tile Parent
-			entity.SetParent(mockTile.Object);
+			entity.SetTile(mockTile.Object);
 
 			// Destroy
 			entity.Destroy();
@@ -70,15 +70,15 @@ namespace Tests.TwoDimension
 		}
 
 		[Test]
-		public void SetParent()
+		public void SetTile()
 		{
 			Entity entity = new Entity();
 			var mockTile = new Mock<ITile>();
 
 			// Test Null
-			Assert.That(() => entity.SetParent(null), Throws.ArgumentNullException);
+			Assert.That(() => entity.SetTile(null), Throws.ArgumentNullException);
 			// Test Set Parent Works
-			Assert.That(() => entity.SetParent(mockTile.Object), Throws.Nothing);
+			Assert.That(() => entity.SetTile(mockTile.Object), Throws.Nothing);
 
 			Assert.AreSame(entity.Tile, mockTile.Object);
 		}

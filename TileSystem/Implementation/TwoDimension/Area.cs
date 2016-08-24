@@ -16,6 +16,10 @@ namespace TileSystem.Implementation.TwoDimension
 	/// </summary>
 	public class Area : IArea
 	{
+		// Position in 2d
+		private IPosition2D position2d;
+
+		// List of tiles this area contains
 		private List<ITile> tiles;
 
 		// Destroyed event from IArea
@@ -26,12 +30,15 @@ namespace TileSystem.Implementation.TwoDimension
 		public event EventHandler<TileRemovedArgs> TileRemoved;
 
 		// Representation in the system
-		public string Type { get; private set; }
-		public string Variation { get; private set; }
+		public string Type { get; protected set; }
+		public string Variation { get; protected set; }
 
 		// Location in the system
 		public ILevel Level { get; private set; }
-		public IPosition2D Position { get; private set; }
+		public IPosition Position
+		{
+			get { return position2d; }
+		}
 
 		/// <summary>
 		/// Default constructor sets up a list of ITile
@@ -58,7 +65,7 @@ namespace TileSystem.Implementation.TwoDimension
 		/// </summary>
 		/// <param name="level">Parent level</param>
 		/// <param name="position">position in 2d</param>
-		public void SetPosition(ILevel level, IPosition2D position)
+		public void SetPosition(ILevel level, IPosition position)
 		{
 			if (level == null)
 			{
@@ -70,8 +77,15 @@ namespace TileSystem.Implementation.TwoDimension
 				throw new ArgumentNullException("position", "Position can not be null");
 			}
 
+			IPosition2D pos = position as IPosition2D;
+
+			if (pos == null)
+			{
+				throw new ArgumentException("position must be of type IPosition2D", "position");
+			}
+
 			Level = level;
-			Position = position;
+			position2d = pos;
 		}
 
 		/// <summary>
@@ -155,6 +169,11 @@ namespace TileSystem.Implementation.TwoDimension
 				}
 			}
 
+			if (Level != null)
+			{
+				Level.Remove(this);
+			}
+
 			if (Destroyed != null)
 			{
 				Destroyed.Invoke(this, new AreaDestroyedArgs());
@@ -167,7 +186,7 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Formatted string representation of the Area(X,Y, Tile Count)</returns>
 		public override string ToString()
 		{
-			return string.Format("[Area X:{0} Y:{1}, Tiles Count:{2}]", Position.X, Position.Y, tiles.Count);
+			return string.Format("[Area X:{0} Y:{1}, Tiles Count:{2}]", position2d.X, position2d.Y, tiles.Count);
 		}
 	}
 }
