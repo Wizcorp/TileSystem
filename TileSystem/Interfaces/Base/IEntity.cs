@@ -10,7 +10,7 @@ namespace TileSystem.Interfaces.Base
 	/// 
 	/// The Tile is a reference to the containing parent for fast traversing
 	/// 
-	/// Set Parent sets the tile that the entity is attached to
+	/// Set Tile sets the tile that the entity is attached to
 	/// 
 	/// The Destroyed, Destroy and CleanUp are management functions so you can cleanup
 	/// without triggering the event, much like destroy immediate in Unity
