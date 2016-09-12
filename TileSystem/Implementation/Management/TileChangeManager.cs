@@ -138,6 +138,7 @@ namespace TileSystem.Implementation.Management
 
 			if (movable == null)
 			{
+
 				return;
 			}
 
@@ -159,7 +160,7 @@ namespace TileSystem.Implementation.Management
 
 			if (movableEntity == null)
 			{
-				return;
+                throw new ArgumentNullException("ChangeTile", "TileChange event was invoked with null object");
 			}
 
 			movableEntity.ChangeStarted -= EntityTileChangeStarted;
@@ -177,8 +178,7 @@ namespace TileSystem.Implementation.Management
 			IEntity entity = sender as IEntity;
 			if (entity == null)
 			{
-				// TODO: Issue 7 (https://github.com/Wizcorp/TileSystem/issues/7)
-				return;
+                throw new ArgumentNullException("ChangeTile", "TileChange event was invoked with null object");
 			}
 
 			ExecuteSolvers(entity, e);
@@ -194,9 +194,8 @@ namespace TileSystem.Implementation.Management
 			IEntity entity = sender as IEntity;
 			if (entity == null)
 			{
-				// TODO: Issue 7 (https://github.com/Wizcorp/TileSystem/issues/7)
-				return;
-			}
+                throw new ArgumentNullException("ChangeTile", "TileChange event was invoked with null object");
+            }
 
 			ExecuteSolvers(entity, e);
 		}
@@ -211,9 +210,8 @@ namespace TileSystem.Implementation.Management
 			IEntity entity = sender as IEntity;
 			if (entity == null)
 			{
-				// TODO: Issue 7 (https://github.com/Wizcorp/TileSystem/issues/7)
-				return;
-			}
+                throw new ArgumentNullException("ChangeTile", "TileChange event was invoked with null object");
+            }
 
 			ExecuteSolvers(entity, e);
 		}
