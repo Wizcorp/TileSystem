@@ -93,8 +93,13 @@ namespace Tests
 			// Mock IChangeTile on entity
 			var mockMovable = mockEntity.As<IChangeTile>();
 
-			// Tile from
-			var mockTileOne = new Mock<ITile>();
+            // Entity that will trigger NULL check
+            var mockNullEntity = new Mock<IEntity>();
+            // Mock IChangeTile on entity that triggers NULL
+            var mockNullMovable = mockNullEntity.As<IChangeTile>();
+
+            // Tile from
+            var mockTileOne = new Mock<ITile>();
 			// Tile to
 			var mockTileTwo = new Mock<ITile>();
 
@@ -109,32 +114,50 @@ namespace Tests
 			var tileChangeArgs = new TileChangedArgs(mockTileOne.Object, mockTileTwo.Object, TileChangeType.Change);
 			var tileFinishArgs = new TileChangedArgs(mockTileOne.Object, mockTileTwo.Object, TileChangeType.Finish);
 
+            
 			// Setup events for Start, Change, and Finish functions so they emit the events
 			mockMovable.Setup(movable => movable.StartChangeTile(mockTileOne.Object, mockTileTwo.Object))
 				.Raises(m => m.ChangeStarted += null, mockMovable.Object, tileStartArgs);
-
-			mockMovable.Setup(movable => movable.ChangeTile(mockTileOne.Object, mockTileTwo.Object))
+            
+            mockMovable.Setup(movable => movable.ChangeTile(mockTileOne.Object, mockTileTwo.Object))
 				.Raises(m => m.Changing += null, mockMovable.Object, tileChangeArgs);
-
+                
 			mockMovable.Setup(movable => movable.FinishChangeTile(mockTileOne.Object, mockTileTwo.Object))
 				.Raises(m => m.ChangeFinished += null, mockMovable.Object, tileFinishArgs);
 
-			// Register Creator
-			manager.RegisterEntityCreator(mockCreator.Object);
+
+            // Setup events for Start, Change, and Finish functions so they emit NULL trigger on the events
+            mockNullMovable.Setup(movable => movable.StartChangeTile(mockTileOne.Object, mockTileTwo.Object))
+                .Raises(m => m.ChangeStarted += null, null, tileStartArgs);
+
+            mockNullMovable.Setup(movable => movable.ChangeTile(mockTileOne.Object, mockTileTwo.Object))
+                .Raises(m => m.Changing += null, null, tileChangeArgs);
+
+            mockNullMovable.Setup(movable => movable.FinishChangeTile(mockTileOne.Object, mockTileTwo.Object))
+                .Raises(m => m.ChangeFinished += null, null, tileFinishArgs);
+
+            // Register Creator
+            manager.RegisterEntityCreator(mockCreator.Object);
 
 			// Add solver that will handlt the entities Tile Change
 			manager.Add(mockSolver.Object);
 
 			// Raise entity created event
 			mockCreator.Raise(creator => creator.EntityCreated += null, mockCreator.Object, new EntityCreatedArgs(mockTileOne.Object, mockEntity.Object));
+            mockCreator.Raise(creator => creator.EntityCreated += null, mockCreator.Object, new EntityCreatedArgs(mockTileOne.Object, mockNullEntity.Object));
 
-			// Move the entity
-			mockMovable.Object.StartChangeTile(mockTileOne.Object, mockTileTwo.Object);
-			mockMovable.Object.ChangeTile(mockTileOne.Object, mockTileTwo.Object);
-			mockMovable.Object.FinishChangeTile(mockTileOne.Object, mockTileTwo.Object);
+            // Move the entity
+            mockMovable.Object.StartChangeTile(mockTileOne.Object, mockTileTwo.Object);
+            mockMovable.Object.ChangeTile(mockTileOne.Object, mockTileTwo.Object);
+            mockMovable.Object.FinishChangeTile(mockTileOne.Object, mockTileTwo.Object);
 
-			// Verify the solver was executed with correct args
-			mockSolver.Verify(solver => solver.Solve(mockEntity.Object, tileStartArgs), Times.Exactly(1));
+            // Asset if event was called with NULL object
+            Assert.That(() => mockNullMovable.Object.StartChangeTile(mockTileOne.Object, mockTileTwo.Object), Throws.ArgumentNullException);
+            Assert.That(() => mockNullMovable.Object.ChangeTile(mockTileOne.Object, mockTileTwo.Object), Throws.ArgumentNullException);
+            Assert.That(() => mockNullMovable.Object.FinishChangeTile(mockTileOne.Object, mockTileTwo.Object), Throws.ArgumentNullException);
+
+            // Verify the solver was executed with correct args
+            mockSolver.Verify(solver => solver.Solve(mockEntity.Object, tileStartArgs), Times.Exactly(1));
 			mockSolver.Verify(solver => solver.Solve(mockEntity.Object, tileChangeArgs), Times.Exactly(1));
 			mockSolver.Verify(solver => solver.Solve(mockEntity.Object, tileFinishArgs), Times.Exactly(1));
 
