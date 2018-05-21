@@ -204,6 +204,8 @@ namespace Tests.TwoDimension
             var firstNeighbourTilePosition = new Position2D(1, 0);
             var mockSecondNeighbourTile = new Mock<Tile>();
             var secondNeighbourTilePosition = new Position2D(1, 1);
+            var mockNotANeighbourTile = new Mock<Tile>();
+            var notANeighbourTilePosition = new Position2D(4, 0);
 
             area.SetPosition(mockLevel.Object, mockPosition.Object);
             mockTile.Object.SetPosition(area, tilePosition);
@@ -224,6 +226,9 @@ namespace Tests.TwoDimension
             Assert.IsTrue(area.GetNeighbours(mockTile.Object).Count == 1);
             mockSecondNeighbourTile.Object.SetPosition(area, secondNeighbourTilePosition);
             area.Add(mockSecondNeighbourTile.Object);
+            Assert.IsTrue(area.GetNeighbours(mockTile.Object).Count == 2);
+            mockNotANeighbourTile.Object.SetPosition(area, notANeighbourTilePosition);
+            area.Add(mockNotANeighbourTile.Object);
             Assert.IsTrue(area.GetNeighbours(mockTile.Object).Count == 2);
         }
     }
