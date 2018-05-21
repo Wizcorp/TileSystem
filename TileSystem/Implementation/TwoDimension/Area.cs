@@ -141,8 +141,12 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Tile instance or null</returns>
 		public ITile Get(IPosition position)
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			throw new NotImplementedException();
+            if (position == null)
+            {
+                throw new ArgumentNullException("position", "Position can not be null");
+            }
+
+            return tiles.Find(tile => tile.Position.CompareTo(position) == 0);
 		}
 
 		/// <summary>

@@ -170,9 +170,26 @@ namespace Tests.TwoDimension
 		[Test]
 		public void PositionGet()
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			Assert.Fail();
-		}
+            Area area = new Area();
+            var mockLevel = new Mock<ILevel>();
+            var mockPosition = new Mock<IPosition2D>();
+            var mockTile = new Mock<Tile>();
+            var tilePosition = new Position2D(0, 0);
+            var tilePositionNotFound = new Position2D(1, 0);
+
+            area.SetPosition(mockLevel.Object, mockPosition.Object);
+            mockTile.Object.SetPosition(area, tilePosition);
+            area.Add(mockTile.Object);
+
+            // Test Nulls
+            Assert.That(() => area.Get(null), Throws.ArgumentNullException);
+
+            // Test Same Tile
+            Assert.AreSame(mockTile.Object, area.Get(tilePosition));
+
+            // Test Tile Not Found
+            Assert.AreNotSame(mockTile.Object, area.Get(tilePositionNotFound));
+        }
 
 		[Test]
 		public void PositionGetNeighbours()
