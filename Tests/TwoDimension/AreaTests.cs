@@ -189,7 +189,7 @@ namespace Tests.TwoDimension
 
 			// Test Tile Not Found
 			Assert.AreNotSame(mockTile.Object, area.Get(tilePositionNotFound));
-        }
+		}
 
 		[Test]
 		public void PositionGetNeighbours()
@@ -232,6 +232,6 @@ namespace Tests.TwoDimension
 			mockNotANeighbourTile.Object.SetPosition(area, notANeighbourTilePosition);
 			area.Add(mockNotANeighbourTile.Object);
 			Assert.IsTrue(area.GetNeighbours(mockTile.Object).Count == 2);
-        }
-    }
+		}
+	}
 }

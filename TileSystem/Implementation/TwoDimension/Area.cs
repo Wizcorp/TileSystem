@@ -178,7 +178,7 @@ namespace TileSystem.Implementation.TwoDimension
 			{
 			    return neigbourTiles;
 			}
-        }
+		}
 
 		/// <summary>
 		/// Destroy this area and emit the event
