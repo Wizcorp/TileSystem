@@ -143,7 +143,7 @@ namespace TileSystem.Implementation.TwoDimension
 		{
 			if (position == null)
 			{
-			    throw new ArgumentNullException("position", "Position can not be null");
+				throw new ArgumentNullException("position", "Position can not be null");
 			}
 
 			return tiles.Find(tile => tile.Position.CompareTo(position) == 0);
@@ -158,25 +158,25 @@ namespace TileSystem.Implementation.TwoDimension
 		{
 			if (tile == null)
 			{
-			    throw new ArgumentNullException("tile", "Tile can not be null");
+				throw new ArgumentNullException("tile", "Tile can not be null");
 			}
 
 			if (tiles.Contains(tile) == false)
 			{
-			    throw new ArgumentException("Tile not in Area", "tile");
+				throw new ArgumentException("Tile not in Area", "tile");
 			}
 
 			List<ITile> neigbourTiles = tiles.FindAll(t => 
-			    Math.Abs(((Position2D)t.Position).X - ((Position2D)tile.Position).X) == 1 ||
-			    Math.Abs(((Position2D)t.Position).Y - ((Position2D)tile.Position).Y) == 1);
+				Math.Abs(((Position2D)t.Position).X - ((Position2D)tile.Position).X) == 1 ||
+				Math.Abs(((Position2D)t.Position).Y - ((Position2D)tile.Position).Y) == 1);
 
 			if (neigbourTiles.Count <= 0)
 			{
-			    return null;
+				return null;
 			}
 			else
 			{
-			    return neigbourTiles;
+				return neigbourTiles;
 			}
 		}
 
