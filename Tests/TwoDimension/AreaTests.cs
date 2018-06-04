@@ -171,13 +171,10 @@ namespace Tests.TwoDimension
 		public void PositionGet()
 		{
 			Area area = new Area();
-			var mockLevel = new Mock<ILevel>();
-			var mockPosition = new Mock<IPosition2D>();
 			var mockTile = new Mock<Tile>();
 			var tilePosition = new Position2D(0, 0);
 			var tilePositionNotFound = new Position2D(1, 0);
 
-			area.SetPosition(mockLevel.Object, mockPosition.Object);
 			mockTile.Object.SetPosition(area, tilePosition);
 			area.Add(mockTile.Object);
 
@@ -195,8 +192,6 @@ namespace Tests.TwoDimension
 		public void PositionGetNeighbours()
 		{
 			Area area = new Area();
-			var mockLevel = new Mock<ILevel>();
-			var mockPosition = new Mock<IPosition2D>();
 			var mockTile = new Mock<Tile>();
 			var tilePosition = new Position2D(0, 0);
 			var mockTileNotInArea = new Mock<Tile>();
@@ -207,7 +202,6 @@ namespace Tests.TwoDimension
 			var mockNotANeighbourTile = new Mock<Tile>();
 			var notANeighbourTilePosition = new Position2D(4, 0);
 
-			area.SetPosition(mockLevel.Object, mockPosition.Object);
 			mockTile.Object.SetPosition(area, tilePosition);
 			area.Add(mockTile.Object);
 
@@ -223,15 +217,16 @@ namespace Tests.TwoDimension
 			// Test One Or More Neighbours
 			mockFirstNeighbourTile.Object.SetPosition(area, firstNeighbourTilePosition);
 			area.Add(mockFirstNeighbourTile.Object);
-			Assert.IsTrue(area.GetNeighbours(mockTile.Object).Count == 1);
-
 			mockSecondNeighbourTile.Object.SetPosition(area, secondNeighbourTilePosition);
 			area.Add(mockSecondNeighbourTile.Object);
-			Assert.IsTrue(area.GetNeighbours(mockTile.Object).Count == 2);
-
 			mockNotANeighbourTile.Object.SetPosition(area, notANeighbourTilePosition);
 			area.Add(mockNotANeighbourTile.Object);
-			Assert.IsTrue(area.GetNeighbours(mockTile.Object).Count == 2);
+
+			var neighbourTiles = area.GetNeighbours(mockTile.Object);
+
+			Assert.IsTrue(neighbourTiles.Contains(mockFirstNeighbourTile.Object));
+			Assert.IsTrue(neighbourTiles.Contains(mockSecondNeighbourTile.Object));
+			Assert.IsFalse(neighbourTiles.Contains(mockNotANeighbourTile.Object));
 		}
 	}
 }
