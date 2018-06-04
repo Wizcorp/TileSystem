@@ -141,8 +141,12 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Tile instance or null</returns>
 		public ITile Get(IPosition position)
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			throw new NotImplementedException();
+			if (position == null)
+			{
+				throw new ArgumentNullException("position", "Position can not be null");
+			}
+
+			return tiles.Find(tile => tile.Position.CompareTo(position) == 0);
 		}
 
 		/// <summary>
@@ -152,8 +156,28 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>List of neighbours or null</returns>
 		public List<ITile> GetNeighbours(ITile tile)
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			throw new NotImplementedException();
+			if (tile == null)
+			{
+				throw new ArgumentNullException("tile", "Tile can not be null");
+			}
+
+			if (tiles.Contains(tile) == false)
+			{
+				throw new ArgumentException("Tile not in Area", "tile");
+			}
+
+			List<ITile> neigbourTiles = tiles.FindAll(t => 
+				Math.Abs(((Position2D)t.Position).X - ((Position2D)tile.Position).X) == 1 ||
+				Math.Abs(((Position2D)t.Position).Y - ((Position2D)tile.Position).Y) == 1);
+
+			if (neigbourTiles.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return neigbourTiles;
+			}
 		}
 
 		/// <summary>

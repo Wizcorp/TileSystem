@@ -170,15 +170,63 @@ namespace Tests.TwoDimension
 		[Test]
 		public void PositionGet()
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			Assert.Fail();
+			Area area = new Area();
+			var mockTile = new Mock<Tile>();
+			var tilePosition = new Position2D(0, 0);
+			var tilePositionNotFound = new Position2D(1, 0);
+
+			mockTile.Object.SetPosition(area, tilePosition);
+			area.Add(mockTile.Object);
+
+			// Test Nulls
+			Assert.That(() => area.Get(null), Throws.ArgumentNullException);
+
+			// Test Same Tile
+			Assert.AreSame(mockTile.Object, area.Get(tilePosition));
+
+			// Test Tile Not Found
+			Assert.AreNotSame(mockTile.Object, area.Get(tilePositionNotFound));
 		}
 
 		[Test]
 		public void PositionGetNeighbours()
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			Assert.Fail();
+			Area area = new Area();
+			var mockTile = new Mock<Tile>();
+			var tilePosition = new Position2D(0, 0);
+			var mockTileNotInArea = new Mock<Tile>();
+			var mockFirstNeighbourTile = new Mock<Tile>();
+			var firstNeighbourTilePosition = new Position2D(1, 0);
+			var mockSecondNeighbourTile = new Mock<Tile>();
+			var secondNeighbourTilePosition = new Position2D(1, 1);
+			var mockNotANeighbourTile = new Mock<Tile>();
+			var notANeighbourTilePosition = new Position2D(4, 0);
+
+			mockTile.Object.SetPosition(area, tilePosition);
+			area.Add(mockTile.Object);
+
+			// Test Nulls
+			Assert.That(() => area.GetNeighbours(null), Throws.ArgumentNullException);
+
+			// Test Tile Not In Area
+			Assert.That(() => area.GetNeighbours(mockTileNotInArea.Object), Throws.ArgumentException);
+
+			// Test No Neighbours
+			Assert.Null(area.GetNeighbours(mockTile.Object));
+
+			// Test One Or More Neighbours
+			mockFirstNeighbourTile.Object.SetPosition(area, firstNeighbourTilePosition);
+			area.Add(mockFirstNeighbourTile.Object);
+			mockSecondNeighbourTile.Object.SetPosition(area, secondNeighbourTilePosition);
+			area.Add(mockSecondNeighbourTile.Object);
+			mockNotANeighbourTile.Object.SetPosition(area, notANeighbourTilePosition);
+			area.Add(mockNotANeighbourTile.Object);
+
+			var neighbourTiles = area.GetNeighbours(mockTile.Object);
+
+			Assert.IsTrue(neighbourTiles.Contains(mockFirstNeighbourTile.Object));
+			Assert.IsTrue(neighbourTiles.Contains(mockSecondNeighbourTile.Object));
+			Assert.IsFalse(neighbourTiles.Contains(mockNotANeighbourTile.Object));
 		}
 	}
 }
