@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using TileSystem.Interfaces.Base;
 using TileSystem.Interfaces.Management;
 using TileSystem.Interfaces.TwoDimension;
@@ -141,8 +141,14 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Tile instance or null</returns>
 		public ITile Get(IPosition position)
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			throw new NotImplementedException();
+            // TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
+            //Assuming position is IPosition2D
+            var currentPosition = position as IPosition2D;
+
+            return tiles?//Using Linq to simplify null check, foreach loop could be used instead.
+                .FirstOrDefault(tile => 
+                (tile.Position as IPosition2D).X == currentPosition.X
+                && (tile.Position as IPosition2D).Y == currentPosition.Y);
 		}
 
 		/// <summary>
@@ -152,9 +158,30 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>List of neighbours or null</returns>
 		public List<ITile> GetNeighbours(ITile tile)
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			throw new NotImplementedException();
-		}
+            // TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
+            List<ITile> result = new List<ITile>();
+
+            //Assuming position is IPosition2D
+            var currentTilePosition = tile.Position as IPosition2D;
+
+            var maxRow = currentTilePosition.Y + 1;
+            var minRow = currentTilePosition.Y - 1;
+
+            var maxColumn = currentTilePosition.X + 1;            
+            var minColumn = currentTilePosition.X - 1;
+            
+            for (int row = minRow; row <= maxRow; row++)
+            {
+                for (int column = minColumn; column <= maxColumn; column++)
+                {
+                    if (row == currentTilePosition.Y && column == currentTilePosition.X)
+                        continue;
+
+                    result.Add(this.Get(new Position2D(column, row)));
+                }
+            }
+            return result.Any() ? result : null;
+        }
 
 		/// <summary>
 		/// Destroy this area and emit the event
