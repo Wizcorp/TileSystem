@@ -170,15 +170,36 @@ namespace Tests.TwoDimension
 		[Test]
 		public void PositionGet()
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			Assert.Fail();
-		}
+            // TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
+            Area area = new Area();
+            var mockPosition = new Mock<IPosition2D>();
+
+            // Test Null
+            Assert.That(() => area.Get(null), Throws.ArgumentNullException);
+
+            /* 
+             * Test position type
+             * Method is assuming IPosition2D, can be used if another type can be expected
+             * Can also be used for Issue 13 (https://github.com/Wizcorp/TileSystem/issues/13)
+            */
+            //Assert.IsInstanceOf<IPosition2D>(mockPosition.Object);
+            
+            // Test Get Position Works
+            Assert.That(() => area.Get(mockPosition.Object), Throws.Nothing);
+        }
 
 		[Test]
 		public void PositionGetNeighbours()
 		{
-			// TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
-			Assert.Fail();
-		}
-	}
+            // TODO: Issue 6 (https://github.com/Wizcorp/TileSystem/issues/6)
+            Area area = new Area();
+            var mockTile = new Mock<ITile>();
+
+            // Test Null
+            Assert.That(() => area.GetNeighbours(null), Throws.ArgumentNullException);
+
+            // Test Get Neighbours Works
+            Assert.That(() => area.GetNeighbours(mockTile.Object), Throws.Nothing);
+        }
+    }
 }
