@@ -6,6 +6,7 @@ using TileSystem.Interfaces.Base;
 using TileSystem.Interfaces.TwoDimension;
 using TileSystem.Implementation.TwoDimension;
 using TileSystem.Interfaces.Creation;
+using System.Collections.Generic;
 
 namespace Tests.TwoDimension
 {
@@ -112,15 +113,69 @@ namespace Tests.TwoDimension
 		[Test]
 		public void PositionGet()
 		{
-			// TODO: Issue 15 (https://github.com/Wizcorp/TileSystem/issues/15)
-			Assert.Fail();
+			Level level = new Level();
+			var mockArea = new Mock<IArea>();
+
+			mockArea.Object.SetPosition(level, new Position2D(5, 5));
+
+			//Add Area to Level
+			level.Add(mockArea.Object);
+
+			IPosition2D position2D = new Position2D(5, 5);
+
+			//Grab the Area by position
+			IArea area = level.Get(position2D);
+
+			//Test that area isn't null
+			Assert.IsNotNull(area);
+
+			//Test that wrong position throws error
+			IPosition2D wrongPosition2D = new Position2D(3, 2);
+			Assert.That(() => level.Get(wrongPosition2D), Throws.ArgumentNullException);
 		}
 
 		[Test]
 		public void PositionGetNeighbours()
 		{
-			// TODO: Issue 15 (https://github.com/Wizcorp/TileSystem/issues/15)
-			Assert.Fail();
+			Level level = new Level();
+			var mockArea1 = new Mock<IArea>();
+			var mockArea2 = new Mock<IArea>();
+			var mockArea3 = new Mock<IArea>();
+			var mockArea4 = new Mock<IArea>();
+			var mockArea5 = new Mock<IArea>();
+			var mockArea6 = new Mock<IArea>();
+
+			//3 Areas that will be each other neighbours
+			mockArea1.Object.SetPosition(level, new Position2D(2, 2));
+			mockArea2.Object.SetPosition(level, new Position2D(1, 2));
+			mockArea3.Object.SetPosition(level, new Position2D(2, 3));
+
+			//2 Areas that will be each other neighbours
+			mockArea4.Object.SetPosition(level, new Position2D(8, 8));
+			mockArea5.Object.SetPosition(level, new Position2D(8, 9));
+
+			//Single Area with no neighbours
+			mockArea3.Object.SetPosition(level, new Position2D(0, 0));
+
+			//Add Areas to the level
+			level.Add(mockArea1.Object);
+			level.Add(mockArea2.Object);
+			level.Add(mockArea3.Object);
+			level.Add(mockArea4.Object);
+			level.Add(mockArea5.Object);
+			level.Add(mockArea6.Object);
+
+			//Test that mockArea2 has 2 neighbours
+			List<IArea> neighbours1 = level.GetNeighbours(mockArea2.Object);
+			Assert.IsTrue(neighbours1.Count == 2);
+
+			//Test that mockArea4 has 1 neighbour
+			List<IArea> neighbours2 = level.GetNeighbours(mockArea4.Object);
+			Assert.IsTrue(neighbours2.Count == 1);
+
+			//Test that mockArea6 has no neighbours
+			List<IArea> neighbours3 = level.GetNeighbours(mockArea6.Object);
+			Assert.IsTrue(neighbours3.Count == 0);
 		}
 	}
 }
