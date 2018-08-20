@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TileSystem.Interfaces.Base;
 using TileSystem.Interfaces.Creation;
 using TileSystem.Interfaces.Management;
+using TileSystem.Interfaces.TwoDimension;
 
 namespace TileSystem.Implementation.TwoDimension
 {
@@ -232,8 +233,30 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>Reference to the area</returns>
 		public IArea Get(IPosition position)
 		{
-			// TODO: Issue 15 (https://github.com/Wizcorp/TileSystem/issues/15)
-			throw new NotImplementedException();
+			IArea currentArea = null;
+
+			//Assuming it's 2D for comparison sake
+			IPosition2D position2D = position as IPosition2D;
+
+			//Looking through all areas in current level
+			foreach (Area area in areas)
+			{
+				IPosition2D areaPosition2D = area.Position as IPosition2D;
+
+				if (areaPosition2D.X == position2D.X && areaPosition2D.Y == position2D.Y)
+				{
+					currentArea = area;
+					//We can stop searching since there won't be any areas with duplicate positions
+					break;
+				}
+			}
+
+			if (currentArea == null)
+			{
+				throw new ArgumentNullException("area", "No Area found at position");
+			}
+
+			return currentArea;
 		}
 
 		/// <summary>
@@ -243,8 +266,35 @@ namespace TileSystem.Implementation.TwoDimension
 		/// <returns>List of IArea which are next to the supplied area</returns>
 		public List<IArea> GetNeighbours(IArea area)
 		{
-			// TODO: Issue 15 (https://github.com/Wizcorp/TileSystem/issues/15)
-			throw new NotImplementedException();
+			//The method will return maximum of 4 neighbours in the 4 cardinal directions, doesn't take into account diagonal neighbours
+			List<IArea> neighbours = new List<IArea>();
+
+			//Assuming it's 2D for ease of comparison
+			IPosition2D areaPosition2D = area.Position as IPosition2D;
+
+			foreach (Area a in areas)
+			{
+				IPosition2D potentialNeighbourPosition2D = a.Position as IPosition2D;
+
+				//Assuming negative positions in areas are possible
+				for (int x = -1; x < 2; x++)
+				{
+					for (int y = -1; y < 2; y++)
+					{
+						//If the position is 0, 0 offset from current area, ignore it, since it's the current area
+						if (x == 0 && y == 0)
+							continue;
+
+						if (potentialNeighbourPosition2D.X + x == areaPosition2D.X && potentialNeighbourPosition2D.Y + y == areaPosition2D.Y)
+						{
+							//If potential Neighbour Position + offset equals the current area position, add it to our list, since it's a neighbour
+							neighbours.Add(a);
+						}
+					}
+				}
+			}
+
+			return neighbours;
 		}
 
 		#endregion
